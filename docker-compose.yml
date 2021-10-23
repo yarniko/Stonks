@@ -14,11 +14,11 @@ services:
       - "5432:5432"
     restart: on-failure
     networks:
-      - ex5gcal_net
+      - stonks_net
    
 volumes:
     postgres:
 
 networks:
-  ex5gcal_net:
+  stonks_net:
     driver: bridge
