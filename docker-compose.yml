@@ -1,0 +1,24 @@
+version: '3'
+ 
+services:
+  postgres:
+    build: ./postgres
+    container_name: postgres
+    environment:
+      TZ: Europe/Moscow
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: on-failure
+    networks:
+      - ex5gcal_net
+   
+volumes:
+    postgres:
+
+networks:
+  ex5gcal_net:
+    driver: bridge
