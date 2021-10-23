@@ -3,7 +3,7 @@
 import psycopg2
 import os
 from psycopg2 import Error, connect, sql
-#
+
 os.environ["PGDATABASE"] = 'metrics'
 os.environ["PGUSER"] = 'postgres'
 os.environ["PGHOST"] = 'localhost'
