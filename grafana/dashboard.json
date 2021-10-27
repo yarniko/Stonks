@@ -12,11 +12,10 @@
       }
     ]
   },
-  "description": "CPU and RAM",
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 2,
+  "id": 1,
   "links": [],
   "panels": [
     {
@@ -25,7 +24,6 @@
       "dashLength": 10,
       "dashes": false,
       "datasource": null,
-      "description": "RAM Usage",
       "fieldConfig": {
         "defaults": {
           "custom": {
@@ -44,172 +42,29 @@
                 "value": 80
               }
             ]
-          },
-          "unit": "decmbytes"
+          }
         },
         "overrides": []
       },
       "fill": 1,
       "fillGradient": 0,
       "gridPos": {
-        "h": 11,
+        "h": 18,
         "w": 24,
         "x": 0,
         "y": 0
       },
       "hiddenSeries": false,
-      "hideTimeOverride": false,
-      "id": 4,
-      "interval": "1",
-      "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "show": true,
-        "sort": "total",
-        "sortDesc": true,
-        "total": true,
-        "values": true
-      },
-      "lines": true,
-      "linewidth": 1,
-      "nullPointMode": "null",
-      "percentage": false,
-      "pluginVersion": "7.1.5",
-      "pointradius": 2,
-      "points": false,
-      "renderer": "flot",
-      "seriesOverrides": [],
-      "spaceLength": 10,
-      "stack": false,
-      "steppedLine": false,
-      "targets": [
-        {
-          "format": "time_series",
-          "group": [
-            {
-              "params": [
-                "$__interval",
-                "none"
-              ],
-              "type": "time"
-            },
-            {
-              "params": [
-                "project_name"
-              ],
-              "type": "column"
-            }
-          ],
-          "metricColumn": "project_name",
-          "rawQuery": false,
-          "rawSql": "SELECT\n  $__timeGroupAlias(\"timestamp\",$__interval),\n  project_name AS metric,\n  avg(mem) AS \"cpu\"\nFROM app40\nGROUP BY 1, project_name,2\nORDER BY 1,2",
-          "refId": "A",
-          "select": [
-            [
-              {
-                "params": [
-                  "mem"
-                ],
-                "type": "column"
-              },
-              {
-                "params": [
-                  "avg"
-                ],
-                "type": "aggregate"
-              },
-              {
-                "params": [
-                  "cpu"
-                ],
-                "type": "alias"
-              }
-            ]
-          ],
-          "table": "app40",
-          "timeColumn": "\"timestamp\"",
-          "timeColumnType": "timestamp",
-          "where": []
-        }
-      ],
-      "thresholds": [],
-      "timeFrom": null,
-      "timeRegions": [],
-      "timeShift": null,
-      "title": "RAM Usage",
-      "tooltip": {
-        "shared": true,
-        "sort": 0,
-        "value_type": "individual"
-      },
-      "type": "graph",
-      "xaxis": {
-        "buckets": null,
-        "mode": "time",
-        "name": null,
-        "show": true,
-        "values": []
-      },
-      "yaxes": [
-        {
-          "format": "decmbytes",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        },
-        {
-          "format": "short",
-          "label": null,
-          "logBase": 1,
-          "max": null,
-          "min": null,
-          "show": true
-        }
-      ],
-      "yaxis": {
-        "align": false,
-        "alignLevel": null
-      }
-    },
-    {
-      "aliasColors": {},
-      "bars": false,
-      "dashLength": 10,
-      "dashes": false,
-      "datasource": "pg",
-      "description": "CPU Usage",
-      "fieldConfig": {
-        "defaults": {
-          "custom": {},
-          "unit": "percent"
-        },
-        "overrides": []
-      },
-      "fill": 1,
-      "fillGradient": 0,
-      "gridPos": {
-        "h": 14,
-        "w": 24,
-        "x": 0,
-        "y": 11
-      },
-      "hiddenSeries": false,
       "id": 2,
+      "interval": "",
       "legend": {
-        "alignAsTable": true,
-        "avg": true,
-        "current": true,
-        "max": true,
-        "min": true,
-        "rightSide": false,
+        "avg": false,
+        "current": false,
+        "max": false,
+        "min": false,
         "show": true,
-        "total": true,
-        "values": true
+        "total": false,
+        "values": false
       },
       "lines": true,
       "linewidth": 1,
@@ -227,23 +82,23 @@
         {
           "format": "time_series",
           "group": [],
-          "metricColumn": "project_name",
+          "metricColumn": "coins",
           "rawQuery": false,
-          "rawSql": "SELECT\n  \"timestamp\" AS \"time\",\n  project_name AS metric,\n  cpu\nFROM app40\nWHERE\n  $__timeFilter(\"timestamp\")\nORDER BY 1,2",
+          "rawSql": "SELECT\n  created_at AS \"time\",\n  coins AS metric,\n  coast\nFROM rate\nWHERE\n  $__timeFilter(created_at)\nORDER BY 1,2",
           "refId": "A",
           "select": [
             [
               {
                 "params": [
-                  "cpu"
+                  "coast"
                 ],
                 "type": "column"
               }
             ]
           ],
-          "table": "app40",
-          "timeColumn": "\"timestamp\"",
-          "timeColumnType": "timestamp",
+          "table": "rate",
+          "timeColumn": "created_at",
+          "timeColumnType": "date",
           "where": [
             {
               "name": "$__timeFilter",
@@ -257,7 +112,7 @@
       "timeFrom": null,
       "timeRegions": [],
       "timeShift": null,
-      "title": "CPU Usage",
+      "title": "Coins",
       "tooltip": {
         "shared": true,
         "sort": 0,
@@ -273,7 +128,7 @@
       },
       "yaxes": [
         {
-          "format": "percent",
+          "format": "short",
           "label": null,
           "logBase": 1,
           "max": null,
@@ -298,9 +153,7 @@
   "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
-  "tags": [
-    "FBI"
-  ],
+  "tags": [],
   "templating": {
     "list": []
   },
@@ -309,7 +162,6 @@
     "to": "now"
   },
   "timepicker": {
-    "hidden": false,
     "refresh_intervals": [
       "5s",
       "10s",
@@ -323,8 +175,8 @@
       "1d"
     ]
   },
-  "timezone": "browser",
-  "title": "FBI metrics",
-  "uid": "CY_lDOvGk",
-  "version": 16
+  "timezone": "",
+  "title": "Stonks",
+  "uid": "MsyIbmK7z",
+  "version": 2
 }
