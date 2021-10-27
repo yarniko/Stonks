@@ -7,7 +7,7 @@ datasources:
   access: proxy
   password: postgres
   user: postgres
-  database: fbi
+  database: metrics
   basicAuth: false
   isDefault: true
   jsonData:
