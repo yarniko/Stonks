@@ -2,11 +2,12 @@
 # import random
 import psycopg2
 import os
-from psycopg2 import Error, connect, sql
+from psycopg2 import Error, connect, sql, 
 
 os.environ["PGDATABASE"] = 'metrics'
 os.environ["PGUSER"] = 'postgres'
 os.environ["PGHOST"] = 'postgres'
+# os.environ["PGHOST"] = 'localhost'
 os.environ["PGPASSWORD"] = 'postgres'
 # ENV
 pg_dbname = os.environ["PGDATABASE"]
@@ -24,6 +25,7 @@ def PgDb(coin):
                                    host=pg_host,
                                    password=pg_password)
         cursor = connect.cursor()
+        print(connect.closed)
         cursor.execute('''
                 INSERT INTO rate(coins,created_at, coast, stonks )
                     SELECT  (%(coin)s) as coins,
@@ -50,5 +52,19 @@ def PgDb(coin):
     except (Exception, Error) as error:
         print("Error: ", error)
 
-for item in name_coins:
-    PgDb(item)
+# for item in name_coins:
+#     # PgDb(item)
+
+
+
+try:
+    connect = psycopg2.connect(dbname=pg_dbname,
+                                user=pg_user,
+                                host=pg_host,
+                                password=pg_password)
+    cursor = connect.cursor()
+    print(connect.closed)
+
+except (Exception, Error) as error:
+    print("Error: ", error)
+    print ("Exception TYPE:", type(error))
