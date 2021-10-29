@@ -30,7 +30,9 @@ services:
       - stonks_net
 
   python:
-    build: ./python
+    build:
+      context: ./
+      dockerfile: ./python/Dockerfile
     container_name: python
     depends_on: 
       - postgres
