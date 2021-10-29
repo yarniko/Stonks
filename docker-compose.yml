@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  postgres:
+    build: ./postgres
+    container_name: postgres
+    environment:
+      TZ: Europe/Moscow
+      POSTGRES_PASSWORD: postgres
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - "5432:5432"
+    restart: on-failure
+    networks:
+      - stonks_net
+
+  grafana:
+    build: ./grafana
+    container_name: grafana
+    environment:
+      TZ: Europe/Moscow
+    volumes:
+      - grafana:/var/lib/grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped    
+    networks:
+      - stonks_net
+
+  python:
+    build:
+      context: ./
+      dockerfile: ./python/Dockerfile
+    container_name: python
+    depends_on: 
+      - postgres
+    networks:
+      - stonks_net
+
+volumes:
+    postgres:
+    grafana:
+
+networks:
+  stonks_net:
+    driver: bridge
